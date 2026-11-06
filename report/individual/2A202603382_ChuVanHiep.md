@@ -2,17 +2,17 @@
 
 > Đổi tên file này thành `MSSV_HoTen.md` của bạn, ví dụ `2A20260000_NguyenVanAn.md`, rồi điền từng mục. Xoá các dòng hướng dẫn in nghiêng khi xong.
 
-- **MSSV:**
-- **Họ và tên:**
-- **SEED** (in ở ô đầu notebook):
+- **MSSV:**2A202603382
+- **Họ và tên:** Chử Văn Hiệp
+- **SEED** (in ở ô đầu notebook):1848
 
 ## 1. Bằng chứng
 
 | Tệp | Có? |
 | --- | --- |
-| [`day01_lab.ipynb`](day01_lab.ipynb) — notebook đã chạy, còn output | ☐ |
-| [`lab1_report.json`](lab1_report.json) — do ô "Báo cáo cuối" sinh ra | ☐ |
-| [`hand_calc.jpg`](hand_calc.jpg) — ảnh tính tay có các bước | ☐ |
+| [`day01_lab.ipynb`](day01_lab.ipynb) — notebook đã chạy, còn output | [x] |
+| [`lab1_report.json`](lab1_report.json) — do ô "Báo cáo cuối" sinh ra | [x] |
+| [`hand_calc.jpg`](hand_calc.jpg) — ảnh tính tay có các bước | [x] |
 
 ## 2. Kết quả chính
 
@@ -46,7 +46,6 @@
 
 ## 4. Phân tích 50 case khó
 
-*Model nào tụt nhiều nhất, ở nhóm case nào? Nêu 2 case cụ thể và cơ chế khiến model sai.*
 - **Model tụt điểm nhiều nhất:** `BoW + MLP` tụt sâu nhất (F1 test thường 0.919 tụt xuống **0.286**, Accuracy chỉ còn **50%**). Kế tiếp là `BoW + LogReg` (F1 0.889 tụt xuống **0.333**, Accuracy **52%**).
 - **Nhóm case gây thảm họa nhất cho BoW:** "Spam giọng tự nhiên" (BoW+MLP đúng 0%), "Né từ khoá" (đúng 0%), và "Thao túng / lừa đảo" (đúng 12%).
 - **2 case cụ thể và cơ chế khiến model sai:**
@@ -57,7 +56,7 @@
 
 ## 5. Thử thách cá nhân
 
-*Đề theo SEED của bạn, cách làm, kết quả, giải thích.*
+
 - **Đề bài nhận được (Đề #1 - SEED 1848):** Đổi ngưỡng quyết định 0.5 → 0.2 và → 0.8 cho mô hình Phần 1 (BoW + LogReg). Báo precision/recall/F1 từng ngưỡng. Một ngân hàng sợ chặn nhầm tin OTP thì nên chọn ngưỡng nào? Vì sao?
 - **Cách làm:** Trích xuất xác suất dự đoán $P(\text{spam} \mid x) = \sigma(w^T x + b)$ trên tập test thông qua `predict_proba`. Dùng vòng lặp quét qua 3 ngưỡng $[0.2, 0.5, 0.8]$, so sánh `probs >= th` để tạo nhãn nhị phân và tính các chỉ số qua hàm `metrics`.
 - **Kết quả thực nghiệm:**
@@ -71,7 +70,7 @@
 
 ## 6. Phương án cho sản phẩm thật
 
-*Với yêu cầu p95 < 50 ms/tin cho 10 triệu SMS/ngày: chọn phương án nào, dẫn số liệu nào, chấp nhận đánh đổi gì.*
+
 - **Yêu cầu:** Lọc 10 triệu SMS/ngày (~116 tin/giây), cam kết SLA p95 < 50 ms/tin.
 - **Phương án lựa chọn:** Hệ thống lai 2 tầng (**Confidence Router**):
   - *Tầng 1 (Lọc nhanh - Cửa ngõ):* Dùng mô hình `2. BoW + MLP`.
@@ -84,7 +83,7 @@
 
 ## 7. AI log và điều đã học
 
-*Mỗi lần dùng AI: hỏi gì, nhận gì, bạn sửa gì. Sau đó 2–3 câu: điều bạn hiểu ra hôm nay mà trước đó chưa hiểu.*
+
 | Phần | Bạn hỏi AI gì (prompt) | AI trả lời/viết gì | Bạn đã sửa / kiểm chứng gì |
 |---|---|---|---|
 | Phần 4 — TODO 4.1 đến 4.4 | Cú pháp triển khai call_openai, build_classification_prompt, parse_label và llm_classify_batch theo template | Cung cấp các hàm hoàn chỉnh kèm xử lý regex parse nhãn | Đã kiểm chứng qua các hàm test giả lập, kiểm tra không dùng max_tokens cho GPT-6 |
